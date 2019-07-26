@@ -22,27 +22,26 @@ class MoviesCollectionVC: UIViewController, CollectionRowSelectionDelegate {
     
     
     @IBAction func filterMovies(_ sender: Any) {
-        let refreshAlert = UIAlertController(title: "Filter", message: "Select filter.", preferredStyle: UIAlertController.Style.alert)
+        let filterAlert = UIAlertController(title: "Filter", message: "Select filter.", preferredStyle: UIAlertController.Style.alert)
         
-        refreshAlert.addAction(UIAlertAction(title: "Popular", style: .default, handler: { (action: UIAlertAction!) in
-            Helper.downloadMoviesData(sortedBy: 1)
+        filterAlert.addAction(UIAlertAction(title: "Popular", style: .default, handler: { (action: UIAlertAction!) in
+            Helper.downloadMoviesData(sortedBy: Helper.filterPopular)
             Helper.showLoadingPopup(onVC: self)
         }))
         
-        refreshAlert.addAction(UIAlertAction(title: "Top rated", style: .default, handler: { (action: UIAlertAction!) in
-            Helper.downloadMoviesData(sortedBy: 0)
+        filterAlert.addAction(UIAlertAction(title: "Top rated", style: .default, handler: { (action: UIAlertAction!) in
+            Helper.downloadMoviesData(sortedBy: Helper.filterTopRated)
             Helper.showLoadingPopup(onVC: self)
         }))
         
-        refreshAlert.addAction(UIAlertAction(title: "Favourites", style: .default, handler: { (action: UIAlertAction!) in
+        filterAlert.addAction(UIAlertAction(title: "Favourites", style: .default, handler: { (action: UIAlertAction!) in
             self.getFavourites()
         }))
-        refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+        filterAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
             print("Handle Cancel Logic here")
         }))
         
-        
-        present(refreshAlert, animated: true, completion: nil)
+        present(filterAlert, animated: true, completion: nil)
     }
     func getFavourites(){
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -95,11 +94,7 @@ class MoviesCollectionVC: UIViewController, CollectionRowSelectionDelegate {
             self.dismiss(animated: false, completion: nil)
         }
     }
-    
-    
-    
 }
-
 
 extension MoviesCollectionVC: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {

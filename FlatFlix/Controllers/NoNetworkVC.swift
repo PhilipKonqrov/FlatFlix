@@ -17,7 +17,6 @@ class NoNetworkVC: UIViewController {
             self.showMainController()
         }
         
-        
     }
     
     private func showMainController() -> Void {

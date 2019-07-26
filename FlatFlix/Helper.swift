@@ -9,6 +9,10 @@
 import Foundation
 import UIKit
 class Helper {
+    // Filter constants
+    static let filterPopular = 1
+    static let filterTopRated = 0
+    
     static var moviesDict = [Int:[MovieModel]]()
     static func createMovies(fromArray:[[String:Any]], page:Int) {
         var movies = [MovieModel]()

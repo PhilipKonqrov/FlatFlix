@@ -15,7 +15,7 @@ class SplashScreenVC: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         NotificationCenter.default.addObserver(self, selector:#selector(self.showMoviesVC), name: NSNotification.Name(rawValue: "reloadTable"), object: nil)
-        Helper.downloadMoviesData(sortedBy: 1)
+        Helper.downloadMoviesData(sortedBy: Helper.filterPopular)
         
         
     }

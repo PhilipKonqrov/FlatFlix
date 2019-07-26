@@ -24,12 +24,7 @@ class MovieDetailVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
         setupView()
-
-        
-        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -55,6 +50,22 @@ class MovieDetailVC: UIViewController {
     }
 
     @objc func rightButtonAction(sender: UIBarButtonItem) {
+        
+        let saveAlert = UIAlertController(title: "Save", message: "Do you realy want to save the movie?", preferredStyle: UIAlertController.Style.alert)
+        
+        saveAlert.addAction(UIAlertAction(title: "Save", style: .default, handler: { (action: UIAlertAction!) in
+            self.saveToCoreData()
+        }))
+        
+        saveAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+            
+        }))
+        
+        present(saveAlert, animated: true, completion: nil)
+    }
+    
+    
+    func saveToCoreData(){
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         let entity = NSEntityDescription.entity(forEntityName: "Movie", in: context)
@@ -70,8 +81,6 @@ class MovieDetailVC: UIViewController {
         newMovie.setValue(movie?.popularity, forKey: "popularity")
         newMovie.setValue(movie?.adult, forKey: "adult")
         
-        
-        
         do {
             try context.save()
             print("Saved!")
@@ -79,6 +88,8 @@ class MovieDetailVC: UIViewController {
             print("Failed saving")
         }
     }
+    
+    
     
     func setupView() {
         let imgPath = "https://image.tmdb.org/t/p/original" + (movie?.poster ?? "")
